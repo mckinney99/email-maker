@@ -12,23 +12,27 @@ const VariableForm = ({ onAddVariable }) => {
   const [value, setValue] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    const { name, value } = e.target;
+    if (name === 'label') {
+      setLabel(value);
+    } else if (name === 'value') {
+      setValue(value);
+    }
     onAddVariable(label, value);
-    setLabel('');
-    setValue('');
   };
 
   return (
     <Container>
       <Row>
         <Col>
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Form.Group controlId="label">
             <Form.Label>Label:</Form.Label>
             <Form.Control
               type="text"
+              name="label"
               value={label}
-              onChange={(e) => setLabel(e.target.value)}
+              onChange={(e) => handleSubmit(e)}
               required
             />
           </Form.Group>
@@ -36,19 +40,28 @@ const VariableForm = ({ onAddVariable }) => {
             <Form.Label>Value:</Form.Label>
             <Form.Control
               type="text"
+              name="value"
               value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => handleSubmit(e)}
               required
             />
           </Form.Group>
           <Row>
             <Col>
-              <Button className="w-100" variant="light" type="submit" xs="auto">
+              <Button 
+                className="w-100" 
+                variant="light" 
+                type="submit" 
+              >
                 Add
               </Button>
             </Col>
             <Col>
-              <Button className="w-100" variant="danger" type="submit">
+              <Button 
+                className="w-100" 
+                variant="danger" 
+                type="submit"
+                >
                 Remove
               </Button>
             </Col>
