@@ -10,7 +10,6 @@ export default function Home() {
   const [variables, setVariables] = useState([]);
 
   const handleAddVariable = (label, value) => {
-    console.log([...variables])
     setVariables([{ label, value }]);
   };
 
