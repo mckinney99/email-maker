@@ -8,59 +8,92 @@ import {
 } from 'react-bootstrap';
 
 const VariableForm = ({ onAddVariable }) => {
+  let newVariable = { label: '', value: '' }
+
   const [label, setLabel] = useState('');
   const [value, setValue] = useState('');
+  const [variableFields, setVariableFields] = useState([newVariable])
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleChange = (index, event) => {
+    const { name, value } = event.target;
+    if (name === 'label') {
+      setLabel(value);
+    } else if (name === 'value') {
+      setValue(value);
+    }
     onAddVariable(label, value);
-    setLabel('');
-    setValue('');
   };
+  
+
+  const handleAddVariableClick = () => {
+    let newVariable = { label: '', value: '' }
+    setVariableFields([...variableFields, newVariable])
+  };
+
+  const removeVariable = (index) => {
+    let data = [...variableFields]
+    data.splice(index, 1)
+    setVariableFields(data)
+  }
 
   return (
     <Container>
       <Row>
-        <Col>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="label">
-            <Form.Label>Label:</Form.Label>
-            <Form.Control
-              type="text"
-              value={label}
-              onChange={(e) => setLabel(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Form.Group controlId="value">
-            <Form.Label>Value:</Form.Label>
-            <Form.Control
-              type="text"
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              required
-            />
-          </Form.Group>
-          <Row>
-            <Col>
-              <Button className="w-100" variant="light" type="submit" xs="auto">
-                Add
-              </Button>
-            </Col>
-            <Col>
-              <Button className="w-100" variant="danger" type="submit">
-                Remove
-              </Button>
-            </Col>
-          </Row>
-          
-        </Form>
-        </Col>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
-        <Col></Col>
-      </Row>
+      <Button 
+        className="w-100" 
+        variant="light" 
+        type="submit"
+        onClick={() => handleAddVariableClick()}
+      >
+        Add Variable
+      </Button>
+      {variableFields.map((input, index) => {
+        return(
+          <Col>
+          <Form>
+            <Form.Group controlId="label">
+              <Form.Label>Label:</Form.Label>
+              <Form.Control
+                type="text"
+                name="label"
+                value={input.label}
+                onChange={(event) => handleChange(index, event)}
+              />
+            </Form.Group>
+            <Form.Group controlId="value">
+              <Form.Label>Value:</Form.Label>
+              <Form.Control
+                type="text"
+                name="value"
+                value={input.value}
+                onChange={(event) => handleChange(index, event)}
+              />
+            </Form.Group>
+            <Row>
+              <Col>
+                <Button 
+                  className="w-100" 
+                  variant="danger" 
+                  type="submit"
+                  onClick={() => removeVariable(index)}
+                  >
+                  Remove
+                </Button>
+              </Col>
+            </Row>
+            
+          </Form>
+          </Col>
+
+
+        )
+        
+      }
+      
+      )
+      
+    }
+    </Row>
     </Container>
   );
 };

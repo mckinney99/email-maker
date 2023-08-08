@@ -10,13 +10,23 @@ const EmailTemplateForm = ({ variables }) => {
   const [emailOutput, setEmailOutput] = useState('');
 
   const handleInputChange = (e) => {
-    setEmailContent(e.target.value);
+    // setEmailContent(e.target.value);
+    const regex = /#\{(\w+)\}/
+    const result = e.target.value.replace(regex, (_, variableLabel) => {
+      const variable = variables.find((v) => v.label.toLowerCase() === variableLabel.toLowerCase());
+      if (variable) {
+        return variable.value;
+      } else {
+        return `[Variable '${variableLabel}' not found]`;
+      }
+    });
+    setEmailContent(result)
   };
 
   const handleEmailSubmission = () => {
     const regex = /#\{(\w+)\}/
     const result = emailContent.replace(regex, (_, variableLabel) => {
-      const variable = variables.find((v) => v.label === variableLabel);
+      const variable = variables.find((v) => v.label.toLowerCase() === variableLabel.toLowerCase());
       if (variable) {
         return variable.value;
       } else {
@@ -40,12 +50,9 @@ const EmailTemplateForm = ({ variables }) => {
             required
           />
         </Form.Group>
-        <Button variant="primary" onClick={handleEmailSubmission}>
-          Submit Email
-        </Button>
       </Form>
       <br/>
-      {emailOutput}
+      {emailContent}
       </Container>
     </>
   );

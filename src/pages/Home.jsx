@@ -10,7 +10,7 @@ export default function Home() {
   const [variables, setVariables] = useState([]);
 
   const handleAddVariable = (label, value) => {
-    setVariables([...variables, { label, value }]);
+    setVariables([{ label, value }]);
   };
 
   return (
@@ -23,6 +23,7 @@ export default function Home() {
           <VariableForm onAddVariable={handleAddVariable} />
         </Col>
       </Row>
+      <br/>
       <Row>
         <Col>
           <EmailTemplateForm variables={variables} />
