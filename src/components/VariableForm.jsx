@@ -9,24 +9,23 @@ import {
 
 let nextId = 1;
 
-const VariableForm = ({ onAddVariable }) => {
+const VariableForm = ({ onDataUpdate }) => {
   let firstVariable = { id: 0, label: '', value: '' }
 
-  const [label, setLabel] = useState('');
-  const [value, setValue] = useState('');
   const [variableFields, setVariableFields] = useState([firstVariable])
 
-  const handleChange = (index, event) => {
-    const { name, value } = event.target;
-    if (name === 'label') {
-      setLabel(value);
-    } else if (name === 'value') {
-      setValue(value);
+  const handleChange = (index, e) => {
+    const updatedFields = [...variableFields];
+
+    if (e.target.name == 'label') {
+      updatedFields[index].label = e.target.value;
+    } else if (e.target.name == 'value') {
+      updatedFields[index].value = e.target.value;
     }
-    onAddVariable(label, value);
+    setVariableFields(updatedFields)
+    onDataUpdate(updatedFields);
   };
   
-
   const handleAddVariableClick = (index) => {
     let newVariable = { id: nextId++, label: '', value: '' }
     setVariableFields([...variableFields, newVariable])
@@ -47,17 +46,16 @@ const VariableForm = ({ onAddVariable }) => {
         >
           Add Variable
         </Button>
-        {variableFields.map(variable => {
-          return(
-            <Col key={variable.id}>
+        {variableFields.map((field, index) => (
+          <Col key={field.id}>
             <Form>
               <Form.Group controlId="label">
                 <Form.Label>Label:</Form.Label>
                 <Form.Control
                   type="text"
                   name="label"
-                  value={variable.label}
-                  onChange={(event) => handleChange(variable, event)}
+                  value={field.label}
+                  onChange={(e) => handleChange(index, e)}
                 />
               </Form.Group>
               <Form.Group controlId="value">
@@ -65,8 +63,8 @@ const VariableForm = ({ onAddVariable }) => {
                 <Form.Control
                   type="text"
                   name="value"
-                  value={variable.value}
-                  onChange={(event) => handleChange(variable, event)}
+                  value={field.value}
+                  onChange={(e) => handleChange(index, e)}
                 />
               </Form.Group>
               <Row>
@@ -75,17 +73,15 @@ const VariableForm = ({ onAddVariable }) => {
                     className="w-100" 
                     variant="danger" 
                     type="submit"
-                    onClick={() => handleRemoveVariableClick(variable)}
+                    onClick={() => handleRemoveVariableClick(field)}
                     >
                     Remove
                   </Button>
                 </Col>
               </Row>
-              
             </Form>
-            </Col>
-          )
-        })}
+          </Col>
+        ))}
       </Row>
     </Container>
   );
