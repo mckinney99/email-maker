@@ -7,29 +7,29 @@ import EmailTemplateForm from "../components/EmailTemplateForm"
 
 export default function Home() {
 
-  const [variables, setVariables] = useState([]);
+  const [variables, setVariables] = useState('');
 
-  const handleAddVariable = (label, value) => {
-    setVariables([{ label, value }]);
+  const handleChildData = (childData) => {
+    setVariables(childData);
   };
 
   return (
     <>
       <Navigation/>
       <Container>
-      <Row>
-        <Col>
-          <h1>Variable Email App</h1>
-          <VariableForm onAddVariable={handleAddVariable} />
-        </Col>
-      </Row>
-      <br/>
-      <Row>
-        <Col>
-          <EmailTemplateForm variables={variables} />
-        </Col>
-      </Row>
-    </Container>
+        <Row>
+          <Col>
+            <h1>Variable Email App</h1>
+            <VariableForm onDataUpdate={handleChildData} />
+          </Col>
+        </Row>
+        <br/>
+        <Row>
+          <Col>
+            <EmailTemplateForm variables={variables} />
+          </Col>
+        </Row>
+      </Container>
       <Footer/>
     </>
   );
