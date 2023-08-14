@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Form, 
   Button,
@@ -10,9 +10,14 @@ import {
 let nextId = 1;
 
 const VariableForm = ({ onDataUpdate }) => {
-  let firstVariable = { id: 0, label: '', value: '' }
+  let firstVariables = [{ id: 0, label: 'name', value: 'Bob' },
+                        { id: 1, label: 'location', value: 'Mars'}]
 
-  const [variableFields, setVariableFields] = useState([firstVariable])
+  const [variableFields, setVariableFields] = useState(firstVariables)
+
+  useEffect(() => {
+    onDataUpdate(variableFields);;
+  }, [variableFields]);
 
   const handleChange = (index, e) => {
     const updatedFields = [...variableFields];
@@ -23,7 +28,7 @@ const VariableForm = ({ onDataUpdate }) => {
       updatedFields[index].value = e.target.value;
     }
     setVariableFields(updatedFields)
-    onDataUpdate(updatedFields);
+    // onDataUpdate(updatedFields);
   };
   
   const handleAddVariableClick = (index) => {
@@ -31,8 +36,17 @@ const VariableForm = ({ onDataUpdate }) => {
     setVariableFields([...variableFields, newVariable])
   };
 
-  const handleRemoveVariableClick = (variable) => {
-    setVariableFields(variableFields.filter(a => a.id !== variable.id));
+  const handleRemoveVariableClick = (variable, e) => {
+    if (variableFields.length >= 1) {
+      e.preventDefault();
+      setVariableFields(current => {
+        // return current.filter(vari => vari !== variable)
+        const updatedState = current.filter(vari => vari !== variable)
+        // onDataUpdate(updatedState);
+        return updatedState
+      })
+    }
+    console.log()
   }
 
   return (
@@ -46,7 +60,7 @@ const VariableForm = ({ onDataUpdate }) => {
         >
           Add Variable
         </Button>
-        {variableFields.map((field, index) => (
+        {variableFields.length >= 1 && variableFields.map((field, index) => (
           <Col key={field.id}>
             <Form>
               <Form.Group controlId="label">
@@ -73,7 +87,7 @@ const VariableForm = ({ onDataUpdate }) => {
                     className="w-100" 
                     variant="danger" 
                     type="submit"
-                    onClick={() => handleRemoveVariableClick(field)}
+                    onClick={(e) => handleRemoveVariableClick(field, e)}
                     >
                     Remove
                   </Button>

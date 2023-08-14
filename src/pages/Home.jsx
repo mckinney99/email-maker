@@ -7,7 +7,9 @@ import EmailTemplateForm from "../components/EmailTemplateForm"
 
 export default function Home() {
 
-  const [variables, setVariables] = useState('');
+  // const [variables, setVariables] = useState('');
+  const [variables, setVariables] = useState([])
+
 
   const handleChildData = (childData) => {
     setVariables(childData);
