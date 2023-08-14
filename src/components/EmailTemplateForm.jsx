@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Form, 
   Button,
@@ -6,37 +6,25 @@ import {
 } from 'react-bootstrap';
 
 const EmailTemplateForm = ({ variables }) => {
-  const [emailContent, setEmailContent] = useState('');
+  const [emailContent, setEmailContent] = useState("Hello #{name}! How's life in #{location}?");
   const [emailOutput, setEmailOutput] = useState('');
 
-  const replaceVariables = (e) => {
-    let replacedValue = e.target.value;
+  const handleInputChange = (e) => {
     setEmailContent(e.target.value)
+  };
+
+  useEffect(() => {
+    replaceVariables(variables);
+  }, [emailContent, variables]);
+
+  const replaceVariables = (variables) => {
+    let replacedContent = emailContent;
 
     variables.forEach((variable) => {
-      const regex = /#\{(\w+)\}/
-      replacedValue = replacedValue.replace(regex, variable.value);
+      const regex = new RegExp(`#{${variable.label}}`, 'ig');
+      replacedContent = replacedContent.replace(regex, variable.value);
     });
-
-    return replacedValue;
-  };
-
-  const handleInputChange = (e) => {
-    const newValue = replaceVariables(e);
-    setEmailOutput(newValue)
-  };
-
-  const handleEmailSubmission = () => {
-    const regex = /#\{(\w+)\}/
-    const result = emailContent.replace(regex, (_, variableLabel) => {
-      const variable = variables.find((v) => v.label.toLowerCase() === variableLabel.toLowerCase());
-      if (variable) {
-        return variable.value;
-      } else {
-        return `[Variable '${variableLabel}' not found]`;
-      }
-    });
-    setEmailOutput(result)
+    setEmailOutput(replacedContent);
   };
 
   return (
@@ -49,7 +37,7 @@ const EmailTemplateForm = ({ variables }) => {
             as="textarea"
             rows="8"
             value={emailContent}
-            onChange={handleInputChange}
+            onChange={(e) => handleInputChange(e)}
             required
           />
         </Form.Group>
