@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Form, 
-  Button,
   Container
 } from 'react-bootstrap';
 
@@ -42,9 +41,10 @@ const EmailTemplateForm = ({ variables }) => {
           />
         </Form.Group>
       </Form>
-      <br/>
-      {emailOutput}
-      </Container>
+      <div className="email-output">
+        {emailOutput}
+      </div>
+    </Container>
     </>
   );
 };

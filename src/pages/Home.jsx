@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Navigation from '../components/Navigation'
 import Footer from '../components/Footer'
 import { Container, Row, Col } from 'react-bootstrap';
 import VariableForm from "../components/VariableForm"
@@ -7,7 +6,6 @@ import EmailTemplateForm from "../components/EmailTemplateForm"
 
 export default function Home() {
 
-  // const [variables, setVariables] = useState('');
   const [variables, setVariables] = useState([])
 
 
@@ -17,11 +15,11 @@ export default function Home() {
 
   return (
     <>
-      <Navigation/>
+      {/* <Navigation/> */}
       <Container>
         <Row>
           <Col>
-            <h1>Variable Email App</h1>
+            <h1 className="header">Variable Email App</h1>
             <VariableForm onDataUpdate={handleChildData} />
           </Col>
         </Row>
