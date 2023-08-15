@@ -16,7 +16,6 @@ const EmailTemplateForm = ({ variables }) => {
 
   useEffect(() => {
     setEmailContent(initialEmailContent)
-    replaceVariables(variables);
   }, [emailContent, variables, initialEmailContent]);
 
   const replaceVariables = (variables) => {
@@ -28,6 +27,8 @@ const EmailTemplateForm = ({ variables }) => {
     });
     setEmailOutput(replacedContent);
   };
+
+  replaceVariables(variables);
 
   return (
     <>
