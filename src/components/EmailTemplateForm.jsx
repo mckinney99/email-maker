@@ -5,18 +5,16 @@ import {
 } from 'react-bootstrap';
 
 const EmailTemplateForm = ({ variables }) => {
-  const [emailContent, setEmailContent] = useState("");
+  const [emailContent, setEmailContent] = useState("Hello #{name}! How's life in #{location}?");
   const [emailOutput, setEmailOutput] = useState("");
 
   const handleInputChange = (e) => {
     setEmailContent(e.target.value)
   };
 
-  const initialEmailContent = "Hello #{name}! How's life in #{location}?"
-
   useEffect(() => {
-    setEmailContent(initialEmailContent)
-  }, [emailContent, variables, initialEmailContent]);
+    replaceVariables(variables);
+  }, [emailContent, variables]);
 
   const replaceVariables = (variables) => {
     let replacedContent = emailContent;
@@ -27,8 +25,6 @@ const EmailTemplateForm = ({ variables }) => {
     });
     setEmailOutput(replacedContent);
   };
-
-  replaceVariables(variables);
 
   return (
     <>
