@@ -42,8 +42,9 @@ const EmailTemplateForm = ({ variables }) => {
           />
         </Form.Group>
       </Form>
-      <br/>
-      {emailOutput}
+      <div className="email-output">
+        {emailOutput}
+      </div>
       </Container>
     </>
   );

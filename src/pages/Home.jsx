@@ -17,11 +17,11 @@ export default function Home() {
 
   return (
     <>
-      <Navigation/>
+      {/* <Navigation/> */}
       <Container>
         <Row>
           <Col>
-            <h1>Variable Email App</h1>
+            <h1 className="header">Variable Email App</h1>
             <VariableForm onDataUpdate={handleChildData} />
           </Col>
         </Row>

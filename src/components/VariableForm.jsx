@@ -52,6 +52,7 @@ const VariableForm = ({ onDataUpdate }) => {
   return (
     <Container>
       <Row>
+        <div className="add-variable">
         <Button 
           className="w-100" 
           variant="light" 
@@ -60,6 +61,7 @@ const VariableForm = ({ onDataUpdate }) => {
         >
           Add Variable
         </Button>
+        </div>
         {variableFields.length >= 1 && variableFields.map((field, index) => (
           <Col key={field.id}>
             <Form>
@@ -82,7 +84,7 @@ const VariableForm = ({ onDataUpdate }) => {
                 />
               </Form.Group>
               <Row>
-                <Col>
+                <Col className="remove-var-button">
                   <Button 
                     className="w-100" 
                     variant="danger" 

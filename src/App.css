@@ -1,74 +1,19 @@
+@import "BootstrapTheme.css";
+
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 .main {
   margin: 40px 80px;
 }
 
-.form-group {
-  margin-top: 30px;
+.add-variable {
+  margin-bottom: 30px;
 }
 
 #form-submit {
   margin-top: 30px;
-}
-
-.result {
-  padding: 15px;
-  overflow: hidden;
-  background-color: rgb(236, 236, 236);
-  border-radius: 12px;
-}
-
-.result button {
-  float: right;
-}
-
-mark { 
-  background-color: rgb(236, 236, 236);
-  margin-left: 5px;
-  margin-right: 15px;
-  font: 1rem Inconsolata, monospace;
-}
-
-.result-text {
-  font: 1rem Inconsolata, monospace;
 }
 
 .nav-description {
@@ -79,8 +24,8 @@ mark {
   margin-top: 12px;
 }
 
-.actions-form {
-  margin-top: 12px;
+.row {
+  padding: 0px;
 }
 
 .footer {
@@ -97,5 +42,28 @@ mark {
 
 .footer-text {
   flex: 1;
-  
+}
+
+.header {
+  margin: 40px 20px;
+}
+
+.remove-var-button {
+  margin: 15px 0px;
+}
+
+.email-output {
+  margin-top: 20px;
+  margin-bottom: 120px;
+  padding: 15px;
+  border: solid;
+  border-color: rgb(212, 212, 212);
+  color: black;
+  background-color: white;
+  border-radius: 15px;
+  white-space: pre-line;
+}
+
+.footer {
+  margin: 20px 60px;
 }
