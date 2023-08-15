@@ -6,7 +6,7 @@ import {
 
 const EmailTemplateForm = ({ variables }) => {
   const [emailContent, setEmailContent] = useState("Hello #{name}! How's life in #{location}?");
-  const [emailOutput, setEmailOutput] = useState('');
+  const [emailOutput, setEmailOutput] = useState("");
 
   const handleInputChange = (e) => {
     setEmailContent(e.target.value)
@@ -14,16 +14,20 @@ const EmailTemplateForm = ({ variables }) => {
 
   useEffect(() => {
     replaceVariables(variables);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emailContent, variables]);
+
+
 
   const replaceVariables = (variables) => {
     let replacedContent = emailContent;
-
-    variables.forEach((variable) => {
+    if (variables.length > 0) {
+      variables.forEach((variable) => {
       const regex = new RegExp(`#{${variable.label}}`, 'ig');
       replacedContent = replacedContent.replace(regex, variable.value);
-    });
-    setEmailOutput(replacedContent);
+      setEmailOutput(replacedContent);
+      })
+    }
   };
 
   return (
