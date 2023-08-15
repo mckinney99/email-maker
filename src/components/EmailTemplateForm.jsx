@@ -16,14 +16,17 @@ const EmailTemplateForm = ({ variables }) => {
     replaceVariables(variables);
   }, [emailContent, variables]);
 
+
+
   const replaceVariables = (variables) => {
     let replacedContent = emailContent;
-
-    variables.forEach((variable) => {
+    if (variables.length > 0) {
+      variables.forEach((variable) => {
       const regex = new RegExp(`#{${variable.label}}`, 'ig');
       replacedContent = replacedContent.replace(regex, variable.value);
-    });
-    setEmailOutput(replacedContent);
+      setEmailOutput(replacedContent);
+      })
+    }
   };
 
   return (
