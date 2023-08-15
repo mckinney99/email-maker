@@ -17,18 +17,17 @@ const VariableForm = ({ onDataUpdate }) => {
 
   useEffect(() => {
     onDataUpdate(variableFields);;
-  }, [variableFields]);
+  }, [variableFields, onDataUpdate]);
 
   const handleChange = (index, e) => {
     const updatedFields = [...variableFields];
 
-    if (e.target.name == 'label') {
+    if (e.target.name === 'label') {
       updatedFields[index].label = e.target.value;
-    } else if (e.target.name == 'value') {
+    } else if (e.target.name === 'value') {
       updatedFields[index].value = e.target.value;
     }
     setVariableFields(updatedFields)
-    // onDataUpdate(updatedFields);
   };
   
   const handleAddVariableClick = (index) => {
@@ -40,13 +39,10 @@ const VariableForm = ({ onDataUpdate }) => {
     if (variableFields.length >= 1) {
       e.preventDefault();
       setVariableFields(current => {
-        // return current.filter(vari => vari !== variable)
         const updatedState = current.filter(vari => vari !== variable)
-        // onDataUpdate(updatedState);
         return updatedState
       })
     }
-    console.log()
   }
 
   return (
