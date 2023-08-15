@@ -14,6 +14,7 @@ const EmailTemplateForm = ({ variables }) => {
 
   useEffect(() => {
     replaceVariables(variables);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emailContent, variables]);
 
 
