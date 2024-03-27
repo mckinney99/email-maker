@@ -1,9 +1,5 @@
 # Getting started
 
-- Spaces don't work when placed in the variable value
-- variables aren't removed from the emailOutput when they are removed while having a value in them
-- Variables aren't being replaced when they get updated
-
 yarn start
   Starts the development server.
 
